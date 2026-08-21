@@ -1,0 +1,31 @@
+-- criando bando de dados
+create database hospital_Anna;
+-- selecione banco de dados
+use hospital_Anna;
+-- cria tabela
+create table if not exists paciente (
+  id_paciente int primary key auto_increment,
+  nome varchar(50) not null,
+  data_nascimento date,
+  altura float,
+  status_cadstro boolean,
+  genero enum('feminino','masculino')
+);
+-- ver tabela
+desc paciente;
+
+create table if not exists medico (
+  id_medico int primary key auto_increment,
+  nome varchar(50) not null
+);
+desc medico;
+
+create table if not exists consulta (
+  id_consulta int primary key auto_increment,
+  data datetime,
+  id_medico int,
+  id_paciente int,
+  foreign key (id_medico) references medico(id_medico),
+  foreign key (id_paciente) references paciente(id_paciente)
+);
+desc consulta;
