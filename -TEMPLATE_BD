@@ -4,4 +4,4 @@ collate utf8mb4_0900_ai_ci;
 
 create table if not exists nome_tabela (
 
-) character set uft8mb4;
+) character set utf8mb4;
