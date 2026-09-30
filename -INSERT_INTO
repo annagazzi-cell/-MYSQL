@@ -1,0 +1,69 @@
+create database if not exists clinica_Saude
+default character set utf8mb4
+collate utf8mb4_0900_ai_ci; 
+use clinica_Saude;
+
+create table if not exists paciente (
+	id int primary key auto_increment,
+    nome varchar(30) not null,
+    data_nascimento date,
+    altura decimal(3,2),
+    status_cadastro boolean,
+    genero enum ('M','F','OUTRO')
+) character set utf8mb4;
+-- Atividade 01: inserir mais 5 registros de paciente (código completo) igual exemplo
+insert into paciente
+(nome, data_nascimento, altura, status_cadastro, genero)
+values
+('Anna Luiza', '2009-06-23', 1.60, true, 'F'),
+('Juninho', '1984-07-01', 1.85, true, 'M'),
+('Deise', '1987-03-03', 1.60, true, 'F'),
+('Robervaldo', '1960-02-29', 1.95, true, 'M'),
+('Robervalina', '2040-05-26', 1.60, true, 'F');
+select*from paciente;
+delete from paciente where id= 3;
+
+create table if not exists medico(
+	id int primary key auto_increment,
+    nome varchar(30)
+) character set utf8mb4;
+-- Atividade 02 inserir mais 5 registros de médico (código completo) igual exemplo
+insert into medico (nome) values
+('Zezé di Camargo'),
+('Paula Fernandes'),
+('Leonardo'),
+('Chitão'),
+('Marrone');
+select*from medico;
+
+create table if not exists consulta (
+	id int primary key auto_increment,
+    data_time datetime,
+    id_paciente int,
+    id_medico int,
+    foreign key (id_paciente) references paciente(id),
+    foreign key (id_medico) references medico(id)
+) character set utf8mb4;
+-- Atividade 03: Cadastrar (código completo) igual exemplo
+insert into consulta
+(data_time, id_paciente, id_medico)
+values
+('2026-09-15 11:11', 1, 2),
+('2026-09-15 11:18', 4, 1),
+('2026-09-15 11:20', 7, 3),
+('2026-09-15 11:21', 4, 2),
+('2026-09-15 11:30', 5, 1);
+select*from consulta;
+select consulta.id, consulta.data_time, paciente.nome, medico.nome
+from consulta
+inner join paciente on consulta.id_paciente = paciente.id
+inner join medico on consulta.id_medico = medico.id;
+
+-- template consultas
+-- sintaxe consultar duas tabelas
+select tabela1.coluna1, tabela2.coluna2
+from tabela1
+inner join tabela2 
+on tabela1.coluna_chave = tabela2.coluna_chave;
+-- consultar todos os dados da tabela
+select*from nome_tabela;
