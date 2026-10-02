@@ -1,0 +1,54 @@
+create database if not exists Brain_Up
+default character set utf8mb4
+collate utf8mb4_0900_ai_ci;
+
+use Brain_Up;
+
+create table if not exists estudante (
+  id_estudante int primary key auto_increment,
+  nome varchar(30) not null,
+  idade date,
+  senha varchar(6),
+  email varchar(30) not null,
+  data_cadastro date,
+  frequencia_estudante boolean
+) character set utf8mb4;
+
+desc estudante;
+-- Inserindo os dados
+insert into estudante
+(nome,idade,senha,email,data_cadastro,frequencia_estudante)
+values
+('Anna','2009-06-23',2306,'Anna@escola','2026-10-01',true),
+('Luiza','1980-08-20',2008,'Luiza@escola','2026-10-01',true),
+('Emilly','2010-01-20',1234,'Emilly@escola','2026-10-01',true),
+('Julio','2010-03-15',2020,'Julius@escola','2026-10-01',false),
+('Heloisa','2009-08-08',2526,'Heloisa@escola','2026-10-01',false),
+('Estrela','2008-06-01',0106,'Estrelinha@escola','2026-10-01',true);
+select*from estudante; 
+
+create table if not exists atividade (
+ id_atividade int primary key auto_increment,
+ tempo_inicio datetime,
+ materia varchar(30),
+ nota int,
+ tempo_desejado time,
+ duracao time,
+ nivel_dificuldade enum('fácil','médio','difícil'),
+ status_n enum ('pendente','concluída'),
+ id_estudante int,
+ foreign key (id_estudante) references estudante(id_estudante)
+) character set utf8mb4;
+
+desc atividade;
+-- Inserindo os dados
+insert into atividade
+(tempo_inicio,materia,nota,tempo_desejado,duracao,nivel_dificuldade,status_n,id_estudante)
+values
+('2026-10-02 10:05','História',9,'00:30:00','00:40:00','médio','concluída',8),
+('2026-10-02 10:15','Matemática',7,'01:30:00','02:00:00','fácil','concluída',9),
+('2026-10-02 10:19','Química',5,'02:30:00','02:00:00','difícil','pendente',7),
+('2026-10-02 10:22','Física',6,'00:25:00','00:20:00','fácil','pendente',11),
+('2026-10-02 10:23','Biologia',5,'03:30:00','02:45:00','médio','pendente',12),
+('2026-10-02 10:30','Sociologia',4,'00:30:00','01:00:00','médio','concluída',10);
+select*from atividade;
