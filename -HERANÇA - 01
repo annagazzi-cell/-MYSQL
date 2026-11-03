@@ -1,0 +1,42 @@
+create database if not exists heranca_anna
+default character set utf8mb4
+collate utf8mb4_0900_ai_ci;
+use heranca_anna;
+
+create table if not exists usuario(
+	id int auto_increment primary key,
+    email varchar(50),
+    senha varchar(8)
+) character set utf8mb4;
+
+insert into usuario (email,senha) values
+('Anna.gazzi@escola.pr.gov.br','12345678'),
+('Anna@gmail.com','87654321');
+
+create table if not exists cliente(
+	nome varchar(50),
+    cpf varchar(11),
+    id_c int primary key,
+    foreign key (id_c) references usuario(id)
+) character set utf8mb4;
+
+insert into cliente (nome,cpf,id_c) values
+('Anna','12345678911',1);
+select*from cliente;
+select cliente.nome, cliente.cpf, usuario.email
+from cliente inner join usuario
+on cliente.id_c = usuario.id;
+
+create table if not exists logista(
+	razao_social varchar(50),
+    cnpj varchar(14),
+    id_l int primary key,
+    foreign key (id_l) references usuario(id)
+) character set utf8mb4;
+
+insert into logista (razao_social,cnpj,id_l) values
+('Restaurante Dona Anna','12345678912345',1);
+select*from logista;
+select logista.razao_social, logista.cnpj, usuario.email
+from logista inner join usuario
+on logista.id_l = usuario.id;
